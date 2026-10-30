@@ -1,0 +1,34 @@
+{
+  "modelVersion": "fraud-model-v1",
+  "modelType": "xgboost.XGBClassifier",
+  "featureOrder": [
+    "claim_amount",
+    "claim_to_premium_ratio",
+    "days_since_policy_start",
+    "previous_claims_count",
+    "vehicle_age_years",
+    "claims_last_90_days"
+  ],
+  "trainedAt": "2026-09-12T06:49:48.739719+00:00",
+  "trainingData": "SYNTHETIC \u2014 see app/ml/train.py module docstring. Not real claims data.",
+  "metrics": {
+    "rocAuc": 0.8885,
+    "prAuc": 0.7119,
+    "precision": 0.5117,
+    "recall": 0.7684,
+    "f1": 0.6143,
+    "confusionMatrix": [
+      [
+        1106,
+        209
+      ],
+      [
+        66,
+        219
+      ]
+    ],
+    "testRows": 1600,
+    "trainRows": 6400,
+    "trainFraudRate": 0.1781
+  }
+}
