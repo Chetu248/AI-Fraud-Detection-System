@@ -1,0 +1,391 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Tailwind v4 dark-mode variant: toggled by adding/removing `.dark` on <html>. */
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------- */
+/* LIGHT THEME (default)                                                  */
+/* ---------------------------------------------------------------------- */
+:root {
+  --background: #f7f9fc;
+  --foreground: #0b1727;
+
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+
+  --card: #ffffff;
+  --card-foreground: #0b1727;
+
+  --popover: #ffffff;
+  --popover-foreground: #0b1727;
+
+  --primary: #3158d4;
+  --primary-foreground: #ffffff;
+
+  --secondary: #edf2f8;
+  --secondary-foreground: #0b1727;
+
+  --muted: #eef3f8;
+  --muted-foreground: #5b6b84;
+
+  --accent: #e8f0ff;
+  --accent-foreground: #1d3f9e;
+
+  --success: #12855c;
+  --success-foreground: #ffffff;
+  --warning: #a8650f;
+  --warning-foreground: #ffffff;
+  --info: #176477;
+  --info-foreground: #ffffff;
+
+  --destructive: #c83b4b;
+  --destructive-foreground: #ffffff;
+
+  --border: #dce5ef;
+  --input: #d5e0eb;
+  --ring: #3158d4;
+
+  --sidebar: #0b1727;
+  --sidebar-foreground: #e6ecf7;
+
+  /* Signature brand gradient stops + glow colors (shared by both themes,
+     re-tuned per theme below where needed). */
+  --brand-glow: rgba(49, 88, 212, 0.25);
+  --brand-cyan: #0ea5b7;
+  --brand-violet: #7c5cff;
+
+  --radius: 0.9rem;
+}
+
+/* ---------------------------------------------------------------------- */
+/* DARK THEME (primary visual identity)                                   */
+/* ---------------------------------------------------------------------- */
+.dark {
+  --background: #050505;
+  --foreground: #eef2f8;
+
+  --surface: #0b0b0d;
+  --surface-elevated: #111114;
+
+  --card: #0b0b0d;
+  --card-foreground: #eef2f8;
+
+  --popover: #101012;
+  --popover-foreground: #eef2f8;
+
+  --primary: #4f7dfb;
+  --primary-foreground: #050510;
+
+  --secondary: #16161a;
+  --secondary-foreground: #eef2f8;
+
+  --muted: #131316;
+  --muted-foreground: #9aa4b8;
+
+  --accent: #171a24;
+  --accent-foreground: #a9c2ff;
+
+  --success: #34d399;
+  --success-foreground: #052e20;
+  --warning: #f5b154;
+  --warning-foreground: #3a2405;
+  --info: #38d0e6;
+  --info-foreground: #032329;
+
+  --destructive: #f2596a;
+  --destructive-foreground: #2b0507;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #4f7dfb;
+
+  --sidebar: #08080a;
+  --sidebar-foreground: #dfe6f5;
+
+  --brand-glow: rgba(79, 125, 251, 0.35);
+  --brand-cyan: #22d3ee;
+  --brand-violet: #a78bfa;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Map CSS variables onto Tailwind utilities (v4 "@theme inline")         */
+/* ---------------------------------------------------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --radius-sm: calc(var(--radius) - 0.35rem);
+  --radius-md: calc(var(--radius) - 0.15rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.35rem);
+
+  --font-sans: var(--font-app-sans), "Segoe UI", sans-serif;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Base element styling                                                   */
+/* ---------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Ambient background used on shell/dashboard pages. Subtle in light mode,
+   pronounced (grid + glow) in dark mode per the "premium AI SaaS" brief. */
+.app-shell-background {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at 100% 0%, var(--brand-glow), transparent 32rem);
+}
+
+.dark .app-shell-background {
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(79, 125, 251, 0.16), transparent 40rem),
+    radial-gradient(circle at 100% 10%, rgba(34, 211, 238, 0.08), transparent 38rem),
+    linear-gradient(var(--background), var(--background)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.028) 0px,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 48px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.028) 0px,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 48px
+    );
+  background-blend-mode: normal, normal, normal, normal, normal;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    opacity 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ring) 35%, transparent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+  color: var(--foreground);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 999px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Reusable premium surface utilities                                     */
+/* ---------------------------------------------------------------------- */
+
+/* Frosted / glass card. Restrained in light mode, more pronounced in dark. */
+.glass-panel {
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.dark .glass-panel {
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Elevated card with a soft hover glow — used for KPI / metric cards. */
+.glow-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.glow-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 15%, transparent),
+    0 16px 40px -20px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+/* Animated conic gradient border, used sparingly for the single hero / AI
+   visual element per the "don't make everything glow" guidance. */
+.brand-ring {
+  position: relative;
+  isolation: isolate;
+}
+
+.brand-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    var(--brand-cyan),
+    var(--primary),
+    var(--brand-violet),
+    var(--brand-cyan)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: brand-ring-spin 6s linear infinite;
+  opacity: 0.7;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes brand-ring-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.bg-grid-fade {
+  background-image:
+    linear-gradient(rgba(127, 143, 168, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 143, 168, 0.14) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 500ms ease both;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.animate-dash-flow {
+  stroke-dasharray: 4 6;
+  animation: dash-flow 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
